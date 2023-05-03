@@ -11,7 +11,21 @@ import java.util.Scanner;
 public class Check {
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static void fetchPriceData() {
+    public static void showPriceData() {
+        PriceData priceData = fetchPriceData();
+
+        if (priceData != null) {
+             System.out.printf("""         
+                        %n----------------------------------------------------
+                        Price of %s in %s: %s
+                        
+                        Fetched at: %s
+                        ----------------------------------------------------
+                        """, priceData.asset_id_base(), priceData.asset_id_quote(), priceData.rate(), priceData.time());
+        }
+    }
+
+    public static PriceData fetchPriceData() {
         Map<String, String> cmd = readInputs();
 
         if (cmd == null)
@@ -20,19 +34,16 @@ public class Check {
         try {
             if (KeyManager.hasApiKey()) {
                 CryptoAPI api = new CryptoAPI();
-                PriceData priceData = api.getPriceData(cmd.get("coin"), cmd.get("crypto"), KeyManager.getApiKey());
 
-                System.out.printf("""         
-                        %n----------------------------------------------------
-                        Price of %s in %s: %s
-                        ----------------------------------------------------
-                        """, cmd.get("crypto"), cmd.get("coin"), priceData.rate());
+                return api.getPriceData(cmd.get("coin"), cmd.get("crypto"), KeyManager.getApiKey());
             } else {
                 System.out.println("No API key found. Use `setkey` to set your API key.");
             }
         } catch (Exception e) {
             System.err.print("Hmm, it seems something went wrong finishing your request: \n\tERR: " + e.getMessage());
         }
+
+        return null;
     }
 
     public static Map<String, String> readInputs() {

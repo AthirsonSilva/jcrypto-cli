@@ -2,6 +2,7 @@ package org.com;
 
 import org.com.commands.Check;
 import org.com.commands.Key;
+import org.com.commands.SMS;
 
 import java.util.Scanner;
 
@@ -30,6 +31,7 @@ public class MainApplication {
                     }
                 }
                 case "check" -> Check.fetchPriceData();
+                case "sms" -> SMS.sendSMS();
                 default -> System.out.println("Invalid command");
             }
         }
@@ -42,6 +44,7 @@ public class MainApplication {
                 Type `exit` to exit the program.
                 Type `key` to manage your API key.
                 Type `check` to check the price of a cryptocurrency.
+                Type `sms` to send a SMS message with the price of a cryptocurrency.
                 ----------------------------------------------------
                 """);
     }
