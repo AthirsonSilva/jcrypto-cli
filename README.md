@@ -13,3 +13,4 @@ javac src/main/java/org/com/MainApplication.java && java src/main/java/org/com/M
 - key: manage your API key to make a requests
 - exit: exits the program
 - check: make a request to the API
+- send: send sms with cotation
